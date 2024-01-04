@@ -1,2 +1,2 @@
-# mslearn-ai-language.ja-jp
-Japanese repo
+# mslearn-ai-language
+Azure AI Language モジュールのラボ ファイル
