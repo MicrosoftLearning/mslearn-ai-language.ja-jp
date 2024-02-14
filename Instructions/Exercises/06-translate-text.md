@@ -17,11 +17,11 @@ lab:
 1. 次の設定を使ってリソースを作成します。
     - **[サブスクリプション]**:"*ご自身の Azure サブスクリプション*"
     - **[リソース グループ]**: *リソース グループを作成または選択します*
-    - **[リージョン]**: 使用できるリージョンを選択します**
+    - **[リージョン]**: *使用できるリージョンを選択します*
     - **[名前]**: *一意の名前を入力します*
     - **価格レベル**: F が利用できない場合、**F0** (*Free*) または **S** (*Standard*) を選択します。
     - **責任ある AI 通知**: 同意。
-1. **[Review + create](レビュー + 作成)** を選択します。
+1. **[確認および作成]** を選択します。
 1. デプロイが完了するまで待ち、デプロイされたリソースに移動します。
 1. **[キーとエンドポイント]** ページが表示されます。 このページの情報は、演習の後半で必要になります。
 
@@ -29,16 +29,16 @@ lab:
 
 Visual Studio Code を使用してテキスト翻訳アプリを開発します。 アプリのコード ファイルは、GitHub リポジトリで提供されています。
 
-> **ヒント**: **mslearn-ai-language** リポジトリを既に複製している場合は、Visual Studio Code で開きます。 それ以外の場合は、次の手順に従って開発環境に複製します。
+> **ヒント**: mslearn-ai-language** リポジトリを**既に複製している場合は、Visual Studio Code で開きます。 それ以外の場合は、次の手順に従って開発環境に複製します。
 
 1. Visual Studio Code を起動します。
 2. パレットを開き (SHIFT+CTRL+P)、**Git:Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/mslearn-ai-language` リポジトリをローカル フォルダーに複製します (どのフォルダーでも問題ありません)。
 3. リポジトリを複製したら、Visual Studio Code でフォルダーを開きます。
 4. リポジトリ内の C# コード プロジェクトをサポートするために追加のファイルがインストールされるまで待ちます。
 
-    > **注**: ビルドとデバッグに必要なアセットを追加するように求めるダイアログが表示された場合は、 **[今はしない]** を選択します。
+    > **注**: ビルドとデバッグに必要なアセットを追加するように求めるプロンプトが表示された場合は、**[今はしない]** を選択します。
 
-## アプリケーションの構成
+## アプリケーションを構成する
 
 C# と Python の両方のアプリケーションが提供されています。 どちらのアプリにも同じ機能があります。 まず、Azure AI 翻訳リソースの使用を有効にするために、アプリケーションのいくつかの重要な部分を完成します。
 
@@ -59,7 +59,7 @@ C# と Python の両方のアプリケーションが提供されています。
 
 3. **[エクスプローラー]** ペインの **translate-text** フォルダーで、優先する言語の構成ファイルを開きます
 
-    - **C#** : appsettings.json
+    - **C#**: appsettings.json
     - **Python**: .env
     
 4. 作成した Azure AI 翻訳リソースの**リージョン**と**キー**を含むように構成値を更新します (Azure portal の Azure AI 翻訳リソースの「**キーとエンドポイント**」ページで使用できます)。
@@ -74,7 +74,7 @@ C# と Python の両方のアプリケーションが提供されています。
 
 1. **translate-text** フォルダーには、クライアント アプリケーションのコード ファイルが含まれていることに注意してください。
 
-    - **C#** : Program.cs
+    - **C#**: Program.cs
     - **Python**: translate.py
 
     コード ファイルを開き、上部の既存の名前空間参照の下で、「**Import namespaces**」というコメントを見つけます。 次に、このコメントの下に、次の言語固有のコードを追加して、Text Analytics SDK を使用するために必要な名前空間インポートします。
@@ -135,7 +135,7 @@ C# と Python の両方のアプリケーションが提供されています。
         }
         else
         {
-            Console.WriteLine($"({targetLanguage} is not a supported language.");
+            Console.WriteLine($"{targetLanguage} is not a supported language.");
         }
 
     }
@@ -169,7 +169,8 @@ C# と Python の両方のアプリケーションが提供されています。
     while (inputText.ToLower() != "quit")
     {
         Console.WriteLine("Enter text to translate ('quit' to exit)");
-        inputText = Console.ReadLine();if (inputText.ToLower() != "quit")
+        inputText = Console.ReadLine();
+        if (inputText.ToLower() != "quit")
         {
             Response<IReadOnlyList<TranslatedTextItem>> translationResponse = await client.TranslateAsync(targetLanguage, inputText).ConfigureAwait(false);
             IReadOnlyList<TranslatedTextItem> translations = translationResponse.Value;
@@ -205,7 +206,7 @@ C# と Python の両方のアプリケーションが提供されています。
 
 1. **Translate text** フォルダーの統合ターミナルで、次のコマンドを入力してプログラムを実行します。
 
-    - **C#** : `dotnet run`
+    - **C#**: `dotnet run`
     - **Python**: `python translate.py`
 
     > **ヒント**: [ターミナル] ツールバーの **最大化パネル サイズ** (**^**) アイコンを使用すると、コンソール テキストをさらに表示できます。
