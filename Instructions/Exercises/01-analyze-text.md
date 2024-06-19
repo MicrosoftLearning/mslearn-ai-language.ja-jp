@@ -37,6 +37,9 @@ Visual Studio Code を使用してテキスト分析アプリを開発します�
 1. Visual Studio Code を起動します。
 2. パレットを開き (SHIFT+CTRL+P)、**Git:Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/mslearn-ai-language` リポジトリをローカル フォルダーに複製します (どのフォルダーでも問題ありません)。
 3. リポジトリを複製したら、Visual Studio Code でフォルダーを開きます。
+
+    > **注**:Visual Studio Code に、開いているコードを信頼するかどうかを求めるポップアップ メッセージが表示された場合は、ポップアップの **[はい、作成者を信頼します]** オプションをクリックします。
+
 4. リポジトリ内の C# コード プロジェクトをサポートするために追加のファイルがインストールされるまで待ちます。
 
     > **注**: ビルドとデバッグに必要なアセットを追加するように求めるプロンプトが表示された場合は、**[今はしない]** を選択します。
@@ -45,8 +48,8 @@ Visual Studio Code を使用してテキスト分析アプリを開発します�
 
 C# と Python の両方のアプリケーションと、要約のテストに使用するサンプル テキスト ファイルが提供されています。 どちらのアプリにも同じ機能があります。 まず、アプリケーションの主要な部分をいくつか完成させて、アプリケーションで Azure AI Language リソースを使用できるようにします。
 
-1. Visual Studio Code の **[エクスプローラー]** ウィンドウで、**Labfiles/01-analyze-text** フォルダーを参照し、言語の設定とそれに含まれる **text-analytics** フォルダーに応じて、**CSharp** フォルダーまたは **Python** フォルダーを展開します。 各フォルダーには、Azure AI Language の Text Analytics 機能を統合するアプリの言語固有のファイルが含まれています。
-2. **text-analysis** フォルダーを右クリックして、統合ターミナルを開きます。 次に、言語設定に適合するコマンドを実行して、Azure AI Language の Text Analytics SDK パッケージをインストールします。 Python 演習では、`dotenv` パッケージもインストールします。
+1. Visual Studio Code の **[エクスプローラー]** ペインで、**Labfiles/01-analyze-text** フォルダーを参照し、言語の設定に応じて **CSharp** または **Python** フォルダー、およびそれに含まれる **text-analysis** フォルダーを展開します。 各フォルダーには、Azure AI Language の Text Analytics 機能を統合するアプリの言語固有のファイルが含まれています。
+2. コード ファイルが含まれている **text-analysis** フォルダーを右クリックし、統合ターミナルを開きます。 次に、言語設定に適合するコマンドを実行して、Azure AI Language の Text Analytics SDK パッケージをインストールします。 Python 演習では、`dotenv` パッケージもインストールします。
 
     **C#**:
 
@@ -61,7 +64,7 @@ C# と Python の両方のアプリケーションと、要約のテストに使
     pip install python-dotenv
     ```
 
-3. **[エクスプローラー]** ウィンドウの **text-analytics** フォルダーで、優先する言語の構成ファイルを開きます。
+3. **[エクスプローラー]** ペインの **text-analysis** フォルダーで、優先する言語の構成ファイルを開きます
 
     - **C#**: appsettings.json
     - **Python**: .env
