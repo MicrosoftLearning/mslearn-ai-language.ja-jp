@@ -119,7 +119,7 @@ Azure AI Language サービスを利用すると、*会話言語理解*モデル
 
 1. **[モデルのパフォーマンス]** ページを選択して、 **[Clock]** モデルを選択します。 全体と意図ごとの評価メトリック ( *"精度"* 、 *"再現率"* 、 *"F1 スコア"* ) と、トレーニング時に行った評価で生成された *"混同行列"* を確認します (サンプル発話数が少ないため、すべての意図が結果に含まれていない可能性がある点に注意してください)。
 
-    > **メモ** 評価メトリックの詳細については、「[ドキュメント](/azure/ai-services/language-service/conversational-language-understanding/concepts/evaluation-metrics)」をご覧ください。
+    > **メモ** 評価メトリックの詳細については、「[ドキュメント](https://learn.microsoft.com/azure/ai-services/language-service/conversational-language-understanding/concepts/evaluation-metrics)」をご覧ください。
 
 1. **[モデルのデプロイ]** ページに移動して、**[デプロイの追加]** を選択します。
 
