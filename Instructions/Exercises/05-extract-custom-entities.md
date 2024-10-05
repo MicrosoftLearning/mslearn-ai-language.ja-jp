@@ -80,6 +80,8 @@ Azure AI Language サービスとストレージ アカウントを作成した�
         - **BLOB ストア コンテナー**: 分類
         - **ファイルにはクラスでラベルが付いていますか?**: いいえ、このプロジェクトの一部としてファイルにラベルを付ける必要があります
 
+> **ヒント**: "この操作を実行する権限がありません" というエラー メッセージを受信した場合は、ロールの割り当てを追加する必要があります。 このエラーを修正するために、ラボを実行しているユーザーのストレージ アカウントに "ストレージ Blob データ共同作成者" ロールを追加します。 詳細については、[こちらのドキュメント](https://learn.microsoft.com/azure/ai-services/language-service/custom-named-entity-recognition/how-to/create-project?tabs=portal%2Clanguage-studio#enable-identity-management-for-your-resource)を参照してください。
+
 ## データにラベルを付ける
 
 プロジェクトが作成されたので、テキストの識別方法をモデルにトレーニングするためにデータにラベルを付ける必要があります。
