@@ -211,12 +211,10 @@ C# と Python の両方のアプリケーションと、要約のテストに使
     ```C#
     // Submit a question and display the answer
     string user_question = "";
-    while (true)
+    while (user_question.ToLower() != "quit")
         {
             Console.Write("Question: ");
             user_question = Console.ReadLine();
-            if (user_question.ToLower() == "quit")
-                break;
             QuestionAnsweringProject project = new QuestionAnsweringProject(projectName, deploymentName);
             Response<AnswersResult> response = aiClient.GetAnswers(user_question, project);
             foreach (KnowledgeBaseAnswer answer in response.Value.Answers)
@@ -234,10 +232,8 @@ C# と Python の両方のアプリケーションと、要約のテストに使
     ```Python
     # Submit a question and display the answer
     user_question = ''
-    while True:
+    while user_question.lower() != 'quit':
         user_question = input('\nQuestion:\n')
-        if user_question.lower() == "quit":                
-            break
         response = ai_client.get_answers(question=user_question,
                                         project_name=ai_project_name,
                                         deployment_name=ai_deployment_name)
