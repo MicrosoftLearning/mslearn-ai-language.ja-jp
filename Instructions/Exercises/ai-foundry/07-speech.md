@@ -4,6 +4,10 @@ lab:
   module: Module 4 - Create speech-enabled apps with Azure AI services
 ---
 
+<!--
+Possibly update to use standalone AI Service instead of Foundry?
+-->
+
 # 音声の認識と合成
 
 **Azure AI 音声**は、次のような音声関連機能を提供するサービスです。
