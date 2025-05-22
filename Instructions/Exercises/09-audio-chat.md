@@ -6,7 +6,7 @@ lab:
 
 # 音声対応チャット アプリを開発する
 
-この演習では、*Phi-4-multimodal-instruct* 生成 AI モデルを使用して、音声ファイルを含むプロンプトに対する応答を生成します。 Azure AI Foundry と Azure AI モデル推論サービスを使用して、食料品店の新鮮な食材に AI 支援を提供するアプリを開発します。
+この演習では、*Phi-4-multimodal-instruct* 生成 AI モデルを使用して、音声ファイルを含むプロンプトに対する応答を生成します。 Azure AI Foundry と Azure AI モデル推論サービスを使用して、顧客が残した音声メッセージを要約することで、農産物サプライヤー会社に AI 支援を提供するアプリを開発します。
 
 この演習は約 **30** 分かかります。
 
@@ -95,13 +95,13 @@ lab:
     **Python**
 
     ```
-    cd mslearn-ai-audio/Labfiles/09-audio-chat/python
+    cd mslearn-ai-audio/Labfiles/09-audio-chat/Python
     ```
 
     **C#**
 
     ```
-    cd mslearn-ai-audio/Labfiles/09-audio-chat/c-sharp
+    cd mslearn-ai-audio/Labfiles/09-audio-chat/C-sharp
     ```
 
 1. Cloud Shell コマンド ライン ペインで、次のコマンドを入力して、これから使用するライブラリをインストールします。
@@ -111,7 +111,7 @@ lab:
     ```
     python -m venv labenv
     ./labenv/bin/Activate.ps1
-    pip install python-dotenv azure-identity azure-ai-projects azure-ai-inference
+    pip install -r requirements.txt azure-identity azure-ai-projects azure-ai-inference
     ```
 
     **C#**
@@ -173,9 +173,6 @@ lab:
         SystemMessage,
         UserMessage,
         TextContentItem,
-        AudioContentItem,
-        InputAudio,
-        AudioContentFormat,
     )
     ```
 
@@ -230,13 +227,13 @@ lab:
 
 1. コード エディターで、**audio-chat.py** ファイルのループ セクションの **Get a response to audio input** (音声入力への応答を取得する) というコメントの下に次のコードを追加して、次の音声を含むプロンプトを送信するようにします。
 
-    <video controls src="../media/manzanas.mp4" title="リンゴの要求" width="150"></video>
+    <video controls src="../media/avocados.mp4" title="アボカドの要求" width="150"></video>
 
     **Python**
 
     ```python
     # Get a response to audio input
-    file_path = "https://github.com/microsoftlearning/mslearn-ai-language/raw/refs/heads/main/labfiles/09-audio-chat/data/manzanas.mp3"
+    file_path = "https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Labfiles/09-audio-chat/data/avocados.mp3"
     response = chat_client.complete(
         messages=[
             SystemMessage(system_message),
@@ -258,7 +255,7 @@ lab:
 
     ```csharp
     // Get a response to audio input
-    string audioUrl = "https://github.com/microsoftlearning/mslearn-ai-language/raw/refs/heads/main/labfiles/09-audio-chat/data/manzanas.mp3";
+    string audioUrl = "https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Labfiles/09-audio-chat/data/avocados.mp3";
     var requestOptions = new ChatCompletionsOptions()
     {
         Messages =
@@ -290,21 +287,25 @@ lab:
     dotnet run
     ```
 
-1. メッセージが表示されたら、`What is this customer saying in English?` というプロンプトを入力します。
+1. メッセージが表示されたら、プロンプトを入力します。 
+
+    ```
+    Can you summarize this customer's voice message?
+    ```
 
 1. 応答を確認します。
 
-### 別のプロンプトを使用する
+### 別のオーディオ ファイルを使用する
 
 1. コード エディターで開いたアプリ コードで、前に **Get a response to audio input** (音声入力への応答を取得する) というコメントの下に追加したコードを見つけます。 次に、コードを次のように変更して、別のオーディオ ファイルを選択します。
 
-    <video controls src="../media/caomei.mp4" title="イチゴの要求" width="150"></video>
+    <video controls src="../media/fresas.mp4" title="イチゴの要求" width="150"></video>
 
     **Python**
 
     ```python
     # Get a response to audio input
-    file_path = "https://github.com/microsoftlearning/mslearn-ai-language/raw/refs/heads/main/labfiles/09-audio-chat/data/caomei.mp3"
+    file_path = "https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Labfiles/09-audio-chat/data/fresas.mp3"
     response = chat_client.complete(
         messages=[
             SystemMessage(system_message),
@@ -326,7 +327,7 @@ lab:
 
     ```csharp
     // Get a response to audio input
-    string audioUrl = "https://github.com/microsoftlearning/mslearn-ai-language/raw/refs/heads/main/labfiles/09-audio-chat/data/caomei.mp3";
+    string audioUrl = "https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Labfiles/09-audio-chat/data/fresas.mp3";
     var requestOptions = new ChatCompletionsOptions()
     {
         Messages =
@@ -358,10 +359,10 @@ lab:
     dotnet run
     ```
 
-1. メッセージが表示されたら、次のプロンプトを入力します。
-
+1. メッセージが表示されたら、次のプロンプトを入力します。 
+    
     ```
-    A customer left this voice message, can you summarize it?
+    Can you summarize this customer's voice message? Is it time-sensitive?
     ```
 
 1. 応答を確認します。 次に、「`quit`」と入力してプログラムを終了します。
