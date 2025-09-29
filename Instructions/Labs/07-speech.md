@@ -243,9 +243,17 @@ Cloud Shell のハードウェアの制限があるため、もう一度合成�
     
     <video controls src="https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Instructions/media/Output2.mp4" title="時刻は 5:30 です。 このラボの終了時間です。" width="150"></video>
 
-## (省略可能) マイクとスピーカーを使用する場合
+## クリーンアップ
 
-この演習では、音声の入力と出力にオーディオ ファイルを使用しました。 オーディオ ハードウェアを使用するようにコードを変更する方法を見てみましょう。
+Azure AI Speech の探索が終わったら、不要な Azure コストが発生しないように、この演習で作成したリソースを削除する必要があります。
+
+1. Azure Cloud Shell ペインを閉じます。
+1. Azure portal で、このラボで作成した Azure AI 音声リソースを参照します。
+1. [リソース] ページで **[削除]** を選択し、指示に従ってリソースを削除します。
+
+## マイクとスピーカーがある場合
+
+この演習では、使用した Azure Cloud Shell 環境がオーディオ ハードウェアをサポートしていないため、音声の入力と出力にオーディオ ファイルを使用しました。 オーディオ ハードウェアが使用可能な場合には使用するように、コードを変更する方法を見てみましょう。
 
 ### マイクによる音声認識の使用
 
@@ -292,14 +300,6 @@ if speak.reason != speech_sdk.ResultReason.SynthesizingAudioCompleted:
 ```
 
 > **注**: システムの既定のスピーカーは既定のオーディオ出力であるため、AudioConfig を完全に省略することもできます。
-
-## クリーンアップ
-
-Azure AI Speech の探索が終わったら、不要な Azure コストが発生しないように、この演習で作成したリソースを削除する必要があります。
-
-1. Azure Cloud Shell ペインを閉じます。
-1. Azure portal で、このラボで作成した Azure AI 音声リソースを参照します。
-1. [リソース] ページで **[削除]** を選択し、指示に従ってリソースを削除します。
 
 ## 詳細
 

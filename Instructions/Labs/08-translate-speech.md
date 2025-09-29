@@ -227,7 +227,7 @@ Azure AI 音声サービスを調べ終えたら、この演習で作成した�
 
 ## マイクとスピーカーがある場合
 
-この演習では、音声の入力と出力にオーディオ ファイルを使用しました。 オーディオ ハードウェアを使用するようにコードを変更する方法を見てみましょう。
+この演習では、使用した Azure Cloud Shell 環境がオーディオ ハードウェアをサポートしていないため、音声の入力と出力にオーディオ ファイルを使用しました。 オーディオ ハードウェアが使用可能な場合には使用するように、コードを変更する方法を見てみましょう。
 
 ### マイクでの音声翻訳の使用
 
@@ -258,7 +258,7 @@ Azure AI 音声サービスを調べ終えたら、この演習で作成した�
             "hi": "hi-IN-MadhurNeural"
    }
    speech_config.speech_synthesis_voice_name = voices.get(targetLanguage)
-   audio_config_out = speech_sdk.audio.AudioConfig(use_default_speaker=True)
+   audio_config_out = speech_sdk.audio.AudioOutputConfig(use_default_speaker=True)
    speech_synthesizer = speech_sdk.SpeechSynthesizer(speech_config, audio_config_out)
    speak = speech_synthesizer.speak_text_async(translation).get()
    if speak.reason != speech_sdk.ResultReason.SynthesizingAudioCompleted:
