@@ -1,73 +1,73 @@
-# Requirements
+# 必要条件
 
-## Run in Cloud Shell
+## Cloud Shell で実行する
 
-* Azure subscription with OpenAI access
-* If running in the Azure Cloud Shell, choose the Bash shell. The Azure CLI and Azure Developer CLI are included in the Cloud Shell.
+* OpenAI アクセス権を持つ Azure サブスクリプション
+* Azure Cloud Shell で実行している場合、Bash シェルを選択します。 Azure CLI と Azure Developer CLI は Cloud Shell に含まれています。
 
-## Run locally
+## ローカルで実行する
 
-* You can run the web app locally after running the deployment script:
+* デプロイ スクリプトを実行した後、Web アプリをローカルで実行できます。
     * [Azure Developer CLI (azd)](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/install-azd)
     * [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
-    * Azure subscription with OpenAI access
+    * OpenAI アクセス権を持つ Azure サブスクリプション
 
 
-## Environment Variables
+## 環境変数
 
-The  `.env` file is created by the *azdeploy.sh* script. The AI model endpoint, API key, and model name are added during the deployment of the resources.
+`.env` ファイルは、*azdeploy.sh* スクリプトによって作成されます。 AI モデル エンドポイント、API キー、モデル名は、リソースのデプロイ時に追加されます。
 
-## Azure resource deployment
+## Azure リソースのデプロイ
 
-The provided `azdeploy.sh` creates the required resources in Azure:
+提供されている `azdeploy.sh` により、Azure に必要なリソースが作成されます。
 
-* Change the two variables at the top of the script to match your needs, don't change anything else.
-* The script:
-    * Deploys the *gpt-4o* model using AZD.
-    * Creates Azure Container Registry service
-    * Uses ACR tasks to build and deploy the Dockerfile image to ACR
-    * Creates the App Service Plan
-    * Creates the App Service Web App
-    * Configures the web app for container image in ACR
-    * Configures the web app environment variables
-    * The script will provide the App Service endpoint
+* スクリプトの先頭にある 2 つの変数をニーズに合わせて変更し、他には何も変更しないでください。
+* スクリプト:
+    * AZD を使用して *gpt-4o* モデルをデプロイします。
+    * Azure Container Registry サービスを作成する
+    * ACR タスクを使用して Dockerfile イメージをビルドし、ACR にデプロイする
+    * App Service プランを作成する
+    * App Service Web アプリを作成する
+    * ACR のコンテナー イメージ用に Web アプリを構成する
+    * Web アプリの環境変数を構成する
+    * このスクリプトにより、App Service エンドポイントが提供されます
 
-The script provides two deployment options: 1. Full deployment; and 2. Redeploy the image only. Option 2 is only for post-deployment when you want to experiment with changes in the application. 
+このスクリプトには、次の 2 つのデプロイ オプションが用意されています。1.  完全なデプロイ。2.  イメージのみを再デプロイ。 オプション 2 は、アプリケーションの変更を試す場合にデプロイ後にのみ使用します。 
 
-> Note: You can run the script in PowerShell, or Bash, using the `bash azdeploy.sh` command, this command also let's you run the script in Bash without having to make it an executable.
+> 注:`bash azdeploy.sh` コマンドを使用して、PowerShell または Bash でスクリプトを実行できます。このコマンドを使用すると、スクリプトを実行可能ファイルに変換することなく Bash で実行することもできます。
 
-## Local development
+## ローカル開発
 
-### Provision AI model to Azure
+### AI モデルを Azure にプロビジョニングする
 
-You can run the run the project locally and only provision the AI model following these steps:
+プロジェクトをローカルで実行し、次の手順に従って AI モデルのみをプロビジョニングできます。
 
-1. **Initialize environment** (choose a descriptive name):
+1. **環境を初期化します** (わかりやすい名前を選択します)。
 
    ```bash
    azd env new gpt-realtime-lab --confirm
    # or: azd env new your-name-gpt-experiment --confirm
    ```
    
-   **Important**: This name becomes part of your Azure resource names!  
-   The `--confirm` flag sets this as your default environment without prompting.
+   **重要**: この名前は、Azure リソース名の一部になります。  
+   `--confirm` フラグは、プロンプトを表示せずに、これを既定の環境として設定します。
 
-1. **Set your resource group**:
+1. **リソース グループを設定します**。
 
    ```bash
    azd env set AZURE_RESOURCE_GROUP "rg-your-name-gpt"
    ```
 
-1. **Login and provision AI resources**:
+1. **AI リソースにログインしてプロビジョニングします**。
 
    ```bash
    az login
    azd provision
    ```
 
-    > **Important**: Do NOT run `azd deploy` - the app is not configured in the AZD templates.
+    > **重要**: `azd deploy` を実行しないでください。アプリは AZD テンプレートで構成されていません。
 
-If you only provisioned the model using the `azd provision` method you MUST create a `.env` file in the root of the directory with the following entries:
+`azd provision` メソッドを使用してモデルのみをプロビジョニングした場合は、次のエントリを含む `.env` ファイルをディレクトリのルートに作成する必要があります。
 
 ```
 AZURE_VOICE_LIVE_ENDPOINT=""
@@ -78,27 +78,27 @@ VOICE_LIVE_INSTRUCTIONS="You are a helpful AI assistant with a focus on world hi
 VOICE_LIVE_VERBOSE="" #Suppresses excessive logging to the terminal if running locally
 ```
 
-Notes:
+注:
 
-1. The endpoint is the endpoint for the model and it should only include `https://<proj-name>.cognitiveservices.azure.com`.
-1. The API key is the key for the model.
-1. The model is the model name used during deployment.
-1. You can retrieve these values from the AI Foundry portal.
+1. エンドポイントはモデルのエンドポイントであり、`https://<proj-name>.cognitiveservices.azure.com` のみを含める必要があります。
+1. API キーはモデルのキーです。
+1. モデルは、デプロイ時に使用されるモデル名です。
+1. これらの値は、AI Foundry ポータルから取得できます。
 
-### Running the project locally
+### ローカルでのプロジェクトの実行
 
-The project was was created and managed using **uv**, but it is not required to run. 
+プロジェクトは、**uv**を使用して作成され、管理されていますが、実行する必要はありません。 
 
-If you have **uv** installed:
+**uv** がインストールされている場合:
 
-* Run `uv venv` to create the environment
-* Run `uv sync` to add packages
-* Alias created for web app: `uv run web` to start the `flask_app.py` script.
-* requirements.txt file created with `uv pip compile pyproject.toml -o requirements.txt`
+* `uv venv` を実行して環境を作成します
+* `uv sync` を実行してパッケージを追加します
+* Web アプリ用に作成されたエイリアス: `flask_app.py` スクリプトを開始する `uv run web`。
+* `uv pip compile pyproject.toml -o requirements.txt` で作成された requirements.txt ファイル
 
-If you don't have **uv** installed:
+**uv** がインストールされていない場合:
 
-* Create environment: `python -m venv .venv`
-* Activate environment: `.\.venv\Scripts\Activate.ps1`
-* Install dependencies: `pip install -r requirements.txt`
-* Run application (from project root): `python .\src\real_time_voice\flask_app.py`
+* 環境を作成します: `python -m venv .venv`
+* 環境をアクティブにします: `.\.venv\Scripts\Activate.ps1`
+* 依存関係をインストールします: `pip install -r requirements.txt`
+* (プロジェクト ルートから) アプリケーションを実行します: `python .\src\real_time_voice\flask_app.py`
