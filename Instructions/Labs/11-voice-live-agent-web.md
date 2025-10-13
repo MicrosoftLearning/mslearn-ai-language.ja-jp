@@ -248,7 +248,7 @@ cd src
 1. Cloud Shell で次のコマンドを実行して、デプロイ スクリプトの編集を開始します。
 
     ```bash
-    cd ~/voice-live-web
+    cd ~/01-voice-live-web
     ```
     
     ```bash
