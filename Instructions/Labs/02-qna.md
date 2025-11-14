@@ -44,7 +44,7 @@ lab:
 
 ## 質問応答プロジェクトを作成する
 
-Azure AI Language リソースで質問応答のナレッジ ベースを作成するには、Language Studio ポータルを使用して質問応答プロジェクトを作成します。 この場合、[Microsoft Learn](https://docs.microsoft.com/learn) に関する質問と答えを含むナレッジ ベースを作成します。
+Azure AI Language リソースで質問応答のナレッジ ベースを作成するには、Language Studio ポータルを使用して質問応答プロジェクトを作成します。 この場合、[Microsoft Learn](https://learn.microsoft.com/training/) に関する質問と答えを含むナレッジ ベースを作成します。
 
 1. 新しいブラウザー タブで Language Studio ポータル ([https://language.cognitive.azure.com/](https://language.cognitive.azure.com/)) に移動し、ご利用の Azure サブスクリプションに関連付けられている Microsoft アカウントを使ってサインインします。
 1. 言語リソースの選択を求めるメッセージが表示されたら、次の設定を選択します。
@@ -75,7 +75,7 @@ Azure AI Language リソースで質問応答のナレッジ ベースを作成�
 
 1. 質問応答プロジェクトの **[ソースの管理]** ページにある **[&#9547; ソースの追加]** の一覧で、 **[URL]** を選択します。 次に、**[URL の追加]** ダイアログ ボックスで **[╋ URL の追加]** を選択し、次の名前と URL を設定してから、**[すべて追加]** を選択してナレッジ ベースに追加します。
     - **名前**: `Learn FAQ Page`
-    - **URL**: `https://docs.microsoft.com/en-us/learn/support/faq`
+    - **URL**: `https://learn.microsoft.com/en-us/training/support/faq?pivots=general`
 1. 質問応答プロジェクトの **[ソースの管理]** ページで、 **[&#9547; ソースの追加]** の一覧にある **[Chitchat](おしゃべり)** を選択します。 次に、**[おしゃべりの追加]** ダイアログ ボックスで、**[フレンドリ]** を選択し、**[おしゃべりの追加]** をクリックします。
 
 ## ナレッジ ベースを編集する
@@ -84,18 +84,18 @@ Azure AI Language リソースで質問応答のナレッジ ベースを作成�
 
 1. Language Studio の **LearnFAQ** プロジェクトで、**[ナレッジ ベースの編集]** ページを選択して既存の質問と回答のペアを表示します (複数のヒントが表示されている場合は、それを読み、**[了解]** を選択して閉じるか、**[すべてスキップ]** を選択します)
 1. ナレッジ ベースの **[質問と回答のペア]** タブで、**[＋]** を選択し、次の設定で新しい質問と回答のペアを作成します。
-    - **ソース**: `https://docs.microsoft.com/en-us/learn/support/faq`
-    - **質問**: `What are Microsoft credentials?`
-    - **回答**: `Microsoft credentials enable you to validate and prove your skills with Microsoft technologies.`
+    - **ソース**: `https://learn.microsoft.com/en-us/training/support/faq?pivots=general`
+    - **質問**: `What are the different types of modules on Microsoft Learn?`
+    - **回答**: `Microsoft Learn offers various types of training modules, including role-based learning paths, product-specific modules, and hands-on labs. Each module contains units with lessons and knowledge checks to help you learn at your own pace.`
 1. **完了** を選択します。
-1. 作成された「**Microsoft 認定資格とは?**」という質問のページで、**[代わりの質問]** を展開してください。 次に、代わりの質問 `How can I demonstrate my Microsoft technology skills?` を追加します。
+1. 作成する "**Microsoft Learn にはどのような種類のモジュールがありますか?**" という質問のページで、**[代替の質問]** を展開します。 次に、代わりの質問 `How are training modules organized?` を追加します。
 
     場合によっては、ユーザーが回答をフォローアップして、*マルチターン*会話を作成できるようにすることが理にかなっています。ユーザーは、質問を繰り返し絞り込んで、必要な回答にたどり着きます。
 
-1. 認定資格についての質問に対して入力した答えで **[フォローアップ プロンプト]** を展開し、次のフォローアップ プロンプトを追加します。
-    - **ユーザーへのプロンプトに表示されるテキスト**: `Learn more about credentials`。
-    - **[新しいペアへのリンクの作成]** を選択し、「`You can learn more about credentials on the [Microsoft credentials page](https://docs.microsoft.com/learn/credentials/).`」のテキストを入力します。
-    - **[コンテキスト フローでのみ表示]** を選択します。 このオプションにより、元の認定質問からのフォローアップ質問のコンテキストでのみ回答が返されるようになります。
+1. モジュールの種類に関する質問に対して入力した回答で、**[フォローアップ プロンプト]** を展開し、次のフォローアップ プロンプトを追加します。
+    - **ユーザーへのプロンプトに表示されるテキスト**: `Learn more about training`。
+    - **[新しいペアへのリンクの作成]** を選択し、「`You can explore modules and learning paths on the [Microsoft Learn training page](https://learn.microsoft.com/training/).`」のテキストを入力します。
+    - **[コンテキスト フローでのみ表示]** を選択します。 このオプションにより、モジュールの種類に関する元の質問からのフォローアップ質問のコンテキストでのみ回答が返されるようになります。
 1. **[プロンプトの追加]** を選択します。
 
 ## ナレッジ ベースのトレーニングとテスト
@@ -107,8 +107,8 @@ Azure AI Language リソースで質問応答のナレッジ ベースを作成�
 1. テスト ペインの上部にある **[短い回答を含める]** の選択を解除します (まだ選択解除されていない場合)。 次に、下部に「`Hello`」というメッセージを入力します。 適切な応答が返される必要があります。
 1. テスト ペインの下部に「`What is Microsoft Learn?`」というメッセージを入力します。 FAQ から適切な応答が返されるはずです。
 1. 「`Thanks!`」というメッセージを入力します。適切なおしゃべりの応答が返されます。
-1. 「`Tell me about Microsoft credentials`」というメッセージを入力します。 作成した回答が、フォローアップ プロンプト ボタンとともに返されます。
-1. **[資格情報の詳細]** フォローアップ リンクを選択します。 認定ページへのリンクを含むフォローアップ回答を返送する必要があります。
+1. 「`What are the different types of modules on Microsoft Learn?`」というメッセージを入力します。 作成した回答が、フォローアップ プロンプト ボタンとともに返されます。
+1. **[トレーニングの詳細]** フォローアップ リンクを選択します。 トレーニング ページへのリンクを含むフォローアップ回答が返されます。
 1. ナレッジ ベースのテストが完了したら、テスト ペインを閉じます。
 
 ## ナレッジ ベースをデプロイする
