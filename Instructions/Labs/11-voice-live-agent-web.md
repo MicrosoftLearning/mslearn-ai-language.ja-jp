@@ -34,19 +34,24 @@ lab:
 
 1. Cloud Shell ツール バーの **[設定]** メニューで、**[クラシック バージョンに移動]** を選択します (これはコード エディターを使用するのに必要です)。
 
-1. **Bash** シェルで次のコマンドを実行して、演習ファイルをダウンロードし、解凍します。 2 番目のコマンドではさらに、演習ファイル用のディレクトリに移動します。
+1. **Bash** シェルで次のコマンドを実行してプロジェクト フォルダーを作成し、演習ファイルをダウンロードして解凍します。
+
+    ```bash
+    mkdir voice-live-web && cd voice-live-web
+    ```
+
 
     ```bash
     wget https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/downloads/python/voice-live-web.zip
     ```
 
     ```
-    unzip voice-live-web.zip && cd voice-live-web
+    unzip voice-live-web.zip
     ```
 
 ## コードを追加して Web アプリを完成する
 
-演習ファイルがダウンロードされたので、次の手順では、コードを追加してアプリケーションを完成します。 以下の手順は Cloud Shell で実行されます。 
+演習ファイルがダウンロードされたので、次の手順では、コードを追加してアプリケーションを完成します。 以下の手順は Cloud Shell で実行されます。
 
 >**ヒント:** 上部の境界線をドラッグして Cloud Shell のサイズを変更すると、より多くの情報とコードが表示されます。 最小化ボタンと最大化ボタンを使用して、Cloud Shell とメイン ポータル インターフェイスを切り替えることもできます。
 
@@ -84,7 +89,7 @@ cd src
         self.model = model
         self.voice = voice
         self.instructions = instructions
-        
+
         # Initialize runtime state - connection established in start()
         self.connection = None
         self._response_cancelled = False  # Used to handle user interruptions
@@ -138,11 +143,11 @@ cd src
         """Handle Voice Live events with clear separation by event type."""
         # Import event types for processing different Voice Live server events
         from azure.ai.voicelive.models import ServerEventType
-        
+
         event_type = event.type
         if verbose:
             _broadcast({"type": "log", "level": "debug", "event_type": str(event_type)})
-        
+
         # Route Voice Live server events to appropriate handlers
         if event_type == ServerEventType.SESSION_UPDATED:
             await self._handle_session_updated()
@@ -167,23 +172,23 @@ cd src
     async def _handle_speech_started(self, conn):
         """User started speaking - handle interruption if needed."""
         self.state_callback("listening", "Listening… speak now")
-        
+
         try:
             # Stop any ongoing audio playback on the client side
             _broadcast({"type": "control", "action": "stop_playback"})
-            
+
             # If assistant is currently speaking or processing, cancel the response to allow interruption
             current_state = assistant_state.get("state")
             if current_state in {"assistant_speaking", "processing"}:
                 self._response_cancelled = True
                 await conn.response.cancel()
-                _broadcast({"type": "log", "level": "debug", 
+                _broadcast({"type": "log", "level": "debug",
                           "msg": f"Interrupted assistant during {current_state}"})
             else:
-                _broadcast({"type": "log", "level": "debug", 
+                _broadcast({"type": "log", "level": "debug",
                           "msg": f"User speaking during {current_state} - no cancellation needed"})
         except Exception as e:
-            _broadcast({"type": "log", "level": "debug", 
+            _broadcast({"type": "log", "level": "debug",
                       "msg": f"Exception in speech handler: {e}"})
 
     async def _handle_speech_stopped(self):
@@ -194,11 +199,11 @@ cd src
         """Stream assistant audio to clients."""
         if self._response_cancelled:
             return  # Skip cancelled responses
-            
+
         # Update state when assistant starts speaking
         if assistant_state.get("state") != "assistant_speaking":
             self.state_callback("assistant_speaking", "Assistant speaking…")
-        
+
         # Extract and broadcast Voice Live audio delta as base64 to WebSocket clients
         audio_data = getattr(event, "delta", None)
         if audio_data:
@@ -226,19 +231,19 @@ cd src
 
 これまで、エージェントを実装してエージェント イベントを処理するコードをアプリに追加しました。 アプリがクライアントの状態と操作をどのように処理しているかをより深く理解するために、数分をかけてコード全体とコメントを確認してください。
 
-1. 完了したら、**Ctrl+ q** キーを入力してエディターを終了します。 
+1. 完了したら、**Ctrl+ q** キーを入力してエディターを終了します。
 
 ## デプロイ スクリプトを更新して実行する
 
-このセクションでは、**azdeploy.sh** デプロイ スクリプトに小さな変更を加えて、デプロイを実行します。 
+このセクションでは、**azdeploy.sh** デプロイ スクリプトに小さな変更を加えて、デプロイを実行します。
 
 ### デプロイ スクリプトを更新する
 
-**azdeploy.sh** デプロイ スクリプトの先頭で変更する必要がある値は 2 つだけです。 
+**azdeploy.sh** デプロイ スクリプトの先頭で変更する必要がある値は 2 つだけです。
 
 * **rg** 値は、デプロイを含むリソース グループを指定します。 既定値をそのまま使用するか、特定のリソース グループにデプロイする必要がある場合は独自の値を入力することができます。
 
-* **location** 値は、デプロイのリージョンを設定します。 演習で使用する *gpt-4o* モデルを他のリージョンにデプロイすることはできますが、特定のリージョンでは制限が存在する場合があります。 選択したリージョンでデプロイが失敗した場合は、**eastus2** または **swedencentral**を試してください。 
+* **location** 値は、デプロイのリージョンを設定します。 演習で使用する *gpt-4o* モデルを他のリージョンにデプロイすることはできますが、特定のリージョンでは制限が存在する場合があります。 選択したリージョンでデプロイが失敗した場合は、**eastus2** または **swedencentral**を試してください。
 
     ```
     rg="rg-voicelive" # Replace with your resource group
@@ -248,9 +253,9 @@ cd src
 1. Cloud Shell で次のコマンドを実行して、デプロイ スクリプトの編集を開始します。
 
     ```bash
-    cd ~/01-voice-live-web
+    cd ~/voice-live-web
     ```
-    
+
     ```bash
     code azdeploy.sh
     ```
@@ -270,16 +275,16 @@ cd src
 1. 初期デプロイの場合は、**オプション 1** を選択します。
 
     デプロイは 5 分から 10 分で完了します。 デプロイ中に、次の情報またはアクションを求められる場合があります。
-    
+
     * Azure に対する認証を求められた場合は、表示される指示に従います。
-    * サブスクリプションを選択するように求められた場合は、方向キーを使用してサブスクリプションを強調表示し、**Enter** キーを押します。 
+    * サブスクリプションを選択するように求められた場合は、方向キーを使用してサブスクリプションを強調表示し、**Enter** キーを押します。
     * デプロイ中にいくつかの警告が表示される可能性がありますが、これらは無視できます。
-    * AI モデルのデプロイ中にデプロイが失敗した場合は、デプロイ スクリプトのリージョンを変更して、もう一度試してください。 
+    * AI モデルのデプロイ中にデプロイが失敗した場合は、デプロイ スクリプトのリージョンを変更して、もう一度試してください。
     * Azure のリージョンは時々ビジー状態になり、デプロイのタイミングが中断されることがあります。 モデルのデプロイ後にデプロイが失敗した場合は、デプロイ スクリプトを再実行します。
 
 ## アプリの表示とテスト
 
-デプロイが完了したら、"Deployment complete!"  メッセージが、Web アプリへのリンクと共にシェル内に表示されます。 そのリンクを選択するか、App Service リソースに移動してそこからアプリを起動できます。 アプリケーションの読み込みには数分かかる場合があります。 
+デプロイが完了したら、"Deployment complete!"  メッセージが、Web アプリへのリンクと共にシェル内に表示されます。 そのリンクを選択するか、App Service リソースに移動してそこからアプリを起動できます。 アプリケーションの読み込みには数分かかる場合があります。
 
 1. **[セッションの開始]** ボタンを選択して、モデルに接続します。
 1. オーディオ デバイスへのアクセス権をアプリケーションに付与するように求められます。
@@ -288,7 +293,7 @@ cd src
 トラブルシューティング:
 
 * アプリから環境変数の不足が報告された場合は、App Service でアプリケーションを再起動します。
-* アプリケーションに表示されるログに過剰な "オーディオ チャンク" メッセージが表示された場合は、**[セッションの停止]** を選択し、セッションをもう一度開始します。** 
+* アプリケーションに表示されるログに過剰な "オーディオ チャンク" メッセージが表示された場合は、**[セッションの停止]** を選択し、セッションをもう一度開始します。**
 * アプリがまったく機能しない場合は、すべてのコードを追加したこと、およびインデントが適切であるかどうかを確認します。 変更を加える必要がある場合は、デプロイを再実行し、**オプション 2** を選択してイメージのみを更新します。
 
 ## リソースをクリーンアップする
