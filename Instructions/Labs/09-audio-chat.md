@@ -94,8 +94,8 @@ lab:
 1. Cloud Shell コマンド ライン ペインで、次のコマンドを入力して、これから使用するライブラリをインストールします。
 
     ```
-   python -m venv labenv
-   ./labenv/bin/Activate.ps1
+   python -m venv labenv;
+   ./labenv/bin/Activate.ps1;
    pip install -r requirements.txt azure-identity azure-ai-projects openai
     ```
 

@@ -77,8 +77,8 @@ Azure portal から Cloud Shell を使用してコード開発を行います。
 1. 次のコマンドを実行して、Python 仮想環境を作成し、Azure AI Language Text Analytics SDK パッケージとその他の必要なパッケージをインストールします。
 
     ```
-    python -m venv labenv
-    ./labenv/bin/Activate.ps1
+    python -m venv labenv;
+    ./labenv/bin/Activate.ps1;
     pip install -r requirements.txt azure-ai-textanalytics==5.3.0
     ```
 

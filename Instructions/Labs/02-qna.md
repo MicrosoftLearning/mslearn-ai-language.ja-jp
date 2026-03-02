@@ -176,9 +176,9 @@ Azure portal で Cloud Shell を使用して、質問応答アプリを開発し
 1. 次のコマンドを実行して、Python 仮想環境を作成し、Azure AI Language Question Answering SDK パッケージとその他の必要なパッケージをインストールします。
 
     ```
-   python -m venv labenv
-   ./labenv/bin/Activate.ps1
-   pip install -r requirements.txt azure-ai-language-questionanswering
+   python -m venv labenv;
+    ./labenv/bin/Activate.ps1;
+    pip install -r requirements.txt azure-ai-language-questionanswering
     ```
 
 1. 次のコマンドを入力して、構成ファイルを編集します。
