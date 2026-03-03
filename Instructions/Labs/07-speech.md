@@ -75,8 +75,8 @@ lab:
 1. 次のコマンドを実行して、Python 仮想環境を作成し、Azure AI Speech SDK パッケージとその他の必要なパッケージをインストールします。
 
     ```
-   python -m venv labenv
-   ./labenv/bin/Activate.ps1
+   python -m venv labenv;
+   ./labenv/bin/Activate.ps1;
    pip install -r requirements.txt azure-cognitiveservices-speech==1.42.0
     ```
 
