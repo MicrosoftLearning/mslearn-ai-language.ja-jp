@@ -13,8 +13,8 @@ def main():
 
         # Get Configuration Settings
         load_dotenv()
-        speech_key = os.getenv('FOUNDRY_KEY')
-        speech_region = os.getenv('FOUNDRY_REGION')
+        foundry_endpoint = os.getenv('FOUNDRY_ENDPOINT')
+        foundry_key = os.getenv('FOUNDRY_KEY')
 
         # Create speech_config using key and region
 
@@ -23,7 +23,7 @@ def main():
         # Loop until user quits
         inputText = ""
         while inputText.lower() != "3":
-            inputText = input("Choose an option:\n1: Record a greeting\n2: Transcribe messages\n3: Exit")
+            inputText = input("Choose an option:\n1: Record a greeting\n2: Transcribe messages\n3: Exit\n")
             if inputText != "3":
                 if inputText == "1":
                     record_greeting(speech_config)
