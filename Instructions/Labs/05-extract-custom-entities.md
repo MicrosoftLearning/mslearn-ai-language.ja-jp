@@ -5,7 +5,9 @@ lab:
   islab: false
 ---
 
-# カスタム エンティティを抽出する
+# カスタム エンティティの抽出 (非推奨)
+
+> **注**: この演習は非推奨です。 <https://learn.microsoft.com/azure/ai-services/language-service/custom-named-entity-recognition/quickstart> のクイックスタート チュートリアルをレビューすることを検討してください。
 
 Azure AI Language サービスでは、他の自然言語処理機能に加えて、カスタム エンティティを定義し、テキストからそのインスタンスを抽出できます。
 
