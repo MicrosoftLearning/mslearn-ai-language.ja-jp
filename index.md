@@ -1,5 +1,5 @@
 ---
-title: Azure Language の演習
+title: Azure で AI Language と Speech のソリューションを開発する
 permalink: index.html
 layout: home
 ---
@@ -18,7 +18,7 @@ layout: home
 
 ### [{{ activity.lab.title }}]({{ site.github.url }}{{ activity.url }})
 
-{% assign labs = site.pages | where_exp:"page", "page.url contains '/Instructions/Exercises'" %} {% for activity in labs  %} {% if activity.lab.title %}
+{% if activity.lab.level %}**レベル**: {{activity.lab.level}} \| {% endif %}{% if activity.lab.duration %}**期間**: {{activity.lab.duration}} 分{% endif %}
 
 {% if activity.lab.description %}
 *{{activity.lab.description}}*
